@@ -1,15 +1,26 @@
 {
-  "name": "test-react-version",
+  "name": "asl-material-table-core-next",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@material-table/core": "^0.2.62",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/lab": "^5.0.0-alpha.108",
+    "@mui/material": "^5.13.1",
+    "@mui/x-date-pickers": "^5.0.9",
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^0.24.0",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router": "^6.11.1",
+    "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "redux": "^4.2.1",
+    "sass": "^1.57.1"
   },
   "scripts": {
     "start": "react-scripts start",
