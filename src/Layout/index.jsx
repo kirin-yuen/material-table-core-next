@@ -7,7 +7,7 @@ import { capitalizeStrBySplit } from '../Utils';
 
 export default function MainLayout() {
   const navigate = useNavigate();
-  const [tabIndex, setTabIndex] = useState(routesMapping[0]?.path);
+  const [tabIndex, setTabIndex] = useState(routesMapping[0].path);
 
   const onTabChange = (e, changeTabIndex) => setTabIndex(changeTabIndex);
 
