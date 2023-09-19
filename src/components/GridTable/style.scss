@@ -1,0 +1,69 @@
+$headerBorderStyle: 1px solid #ffffff;
+$borderStyle: 1px solid rgb(224, 224, 224);
+
+.grid-container {
+  .MuiPaper-root {
+    box-shadow: none;
+  }
+
+  // 合并行/列表格
+  .row-span-table,
+  .col-span-table {
+    width: 100%;
+    height: 100%;
+    border-spacing: 0;
+  }
+
+  .MuiTableCell-root {
+    height: 0;
+  }
+
+  .row-span-table {
+    tr {
+      td {
+        border-bottom: $borderStyle;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    &.header-style {
+      tr td {
+        border: $headerBorderStyle;
+      }
+    }
+  }
+
+  .col-span-table {
+    tr {
+      td {
+        text-align: center;
+        border-right: $borderStyle;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    &.header-style {
+      tr td {
+        border: $headerBorderStyle;
+      }
+    }
+  }
+
+  .MuiTableCell-body {
+    border: $borderStyle;
+  }
+
+  .MTableNext .MuiFormControl-root {
+    border: $borderStyle;
+  }
+}
+
+.MuiTable-root .MuiTablePagination-root {
+  border-bottom: none;
+}
