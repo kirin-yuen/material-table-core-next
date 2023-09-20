@@ -23,7 +23,7 @@ $borderStyle: 1px solid rgb(224, 224, 224);
       td {
         border-bottom: $borderStyle;
       }
-      
+
       &:last-child {
         border-bottom: none;
       }
@@ -57,6 +57,11 @@ $borderStyle: 1px solid rgb(224, 224, 224);
 
   .MuiTableCell-body {
     border: $borderStyle;
+
+    // action button
+    div[style*='display: flex'] {
+      justify-content: center;
+    }
   }
 
   .MTableNext .MuiFormControl-root {

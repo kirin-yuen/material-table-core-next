@@ -2,6 +2,7 @@ import MaterialTable from '@material-table/core';
 import { Button } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
 import './style.scss';
+import { tableIcons } from './tableIcons';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -15,6 +16,7 @@ const defaultOptions = {
 export default function MTableNext(props) {
   const { data, options, columns } = props;
   const [columnsDef, setColumnsDef] = useState(columns);
+
   const columnsRef = useRef([]);
 
   const mergeOptions = {
@@ -33,6 +35,7 @@ export default function MTableNext(props) {
         data={data}
         options={mergeOptions}
         columns={columnsDef}
+        icons={tableIcons}
         localization={{
           toolbar: {
             searchPlaceholder: 'Filter Result',
