@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
 import './style.scss';
 import { tableIcons } from './tableIcons';
+import { OverrideComponents } from './OverrideComponents/index.jsx';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -36,6 +37,13 @@ export default function MTableNext(props) {
         options={mergeOptions}
         columns={columnsDef}
         icons={tableIcons}
+        components={{
+          ...props.components,
+          ...OverrideComponents,
+        }}
+        editable={{
+          ...props.editable,
+        }}
         localization={{
           toolbar: {
             searchPlaceholder: 'Filter Result',
