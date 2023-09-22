@@ -1,6 +1,7 @@
 import ResetColumns from '../pages/ResetColumns/index.jsx';
 import CustomizeAction from '../pages/CustomizeAction/index.jsx';
 import OverrideEditField from '../pages/OverrideEditField/index.jsx';
+import OverrideRowUpdateCancel from '../pages/OverrideRowUpdateCancel/index.jsx';
 
 export const routesMapping = [
   {
@@ -14,5 +15,9 @@ export const routesMapping = [
   {
     path: 'override-editfield',
     element: <OverrideEditField />,
+  },
+  {
+    path: 'override-row-update-cancel',
+    element: <OverrideRowUpdateCancel />,
   },
 ];

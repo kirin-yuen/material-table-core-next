@@ -61,6 +61,7 @@ $borderStyle: 1px solid rgb(224, 224, 224);
     // action button
     div[style*='display: flex'] {
       justify-content: center;
+      align-items: center;
     }
   }
 
