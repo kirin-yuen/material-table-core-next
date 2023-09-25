@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import './style.scss';
 import { tableIcons } from './tableIcons';
 import { OverrideComponents } from './OverrideComponents/index.jsx';
+import { getUpdateChangeRows } from './utis';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -15,7 +16,7 @@ const defaultOptions = {
 };
 
 export default function MTableNext(props) {
-  const { data, options, columns } = props;
+  const { data, options, columns, tableRef } = props;
   const [columnsDef, setColumnsDef] = useState(columns);
 
   const columnsRef = useRef([]);
@@ -27,6 +28,10 @@ export default function MTableNext(props) {
 
   useEffect(() => {
     columnsRef.current = columns.map((item) => ({ ...item }));
+
+    if (tableRef) {
+      tableRef.current.getUpdateChangeRows = getUpdateChangeRows;
+    }
   }, []);
 
   return (
@@ -39,7 +44,7 @@ export default function MTableNext(props) {
         icons={tableIcons}
         components={{
           ...props.components,
-          ...OverrideComponents,
+          ...OverrideComponents(tableRef),
         }}
         editable={{
           ...props.editable,

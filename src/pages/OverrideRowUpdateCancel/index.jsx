@@ -49,44 +49,44 @@ export default function OverrideRowUpdateCancel() {
         columns={columns}
         data={mockRows}
         // 组件级别的内容，因此应该写在 grid table 组件里面，这里只是作区分演示，所以新起一页 demo
-        components={{
-          Action: (actionProps) => {
-            const { tooltip, onClick } = actionProps.action;
+        // components={{
+        //   Action: (actionProps) => {
+        //     const { tooltip, onClick } = actionProps.action;
 
-            if (tooltip === 'Cancel') {
-              return (
-                <Tooltip title={tooltip} placement="bottom">
-                  <IconButton
-                    onClick={() => {
-                      const differentRowArr = Object.entries(
-                        tableRef.current.dataManager.bulkEditChangedRows
-                      ).filter(([, { newData, oldData }]) => {
-                        if (
-                          JSON.stringify(newData) === JSON.stringify(oldData)
-                        ) {
-                          return false;
-                        }
+        //     if (tooltip === 'Cancel') {
+        //       return (
+        //         <Tooltip title={tooltip} placement="bottom">
+        //           <IconButton
+        //             onClick={() => {
+        //               const differentRowArr = Object.entries(
+        //                 tableRef.current.dataManager.bulkEditChangedRows
+        //               ).filter(([, { newData, oldData }]) => {
+        //                 if (
+        //                   JSON.stringify(newData) === JSON.stringify(oldData)
+        //                 ) {
+        //                   return false;
+        //                 }
 
-                        return true;
-                      });
+        //                 return true;
+        //               });
 
-                      if (differentRowArr.length > 0) {
-                        alert('Row is updated, please check');
-                      } else {
-                        tableRef.current.dataManager.clearBulkEditChangedRows(); // 清除编辑过的行数据记录
-                        onClick();
-                      }
-                    }}
-                  >
-                    <actionProps.action.icon />
-                  </IconButton>
-                </Tooltip>
-              );
-            }
+        //               if (differentRowArr.length > 0) {
+        //                 alert('Row is updated, please check');
+        //               } else {
+        //                 tableRef.current.dataManager.clearBulkEditChangedRows(); // 清除编辑过的行数据记录
+        //                 onClick();
+        //               }
+        //             }}
+        //           >
+        //             <actionProps.action.icon />
+        //           </IconButton>
+        //         </Tooltip>
+        //       );
+        //     }
 
-            return <MTableAction {...actionProps} />;
-          },
-        }}
+        //     return <MTableAction {...actionProps} />;
+        //   },
+        // }}
         editable={{
           isEditHidden: (rowData) => rowData.tableData.id !== 1,
           onRowUpdate: () =>
