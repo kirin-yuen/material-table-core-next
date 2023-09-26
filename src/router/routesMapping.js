@@ -2,6 +2,7 @@ import ResetColumns from '../pages/ResetColumns/index.jsx';
 import CustomizeAction from '../pages/CustomizeAction/index.jsx';
 import OverrideEditField from '../pages/OverrideEditField/index.jsx';
 import OverrideRowUpdateCancel from '../pages/OverrideRowUpdateCancel/index.jsx';
+import CustomizeButtonBulkUpdate from '../pages/CustomizeButtonBulkUpdate/index.jsx';
 
 export const routesMapping = [
   {
@@ -19,5 +20,9 @@ export const routesMapping = [
   {
     path: 'override-row-update-cancel',
     element: <OverrideRowUpdateCancel />,
+  },
+  {
+    path: 'customize-button-bulk-update',
+    element: <CustomizeButtonBulkUpdate />,
   },
 ];
