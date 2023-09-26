@@ -4,7 +4,13 @@ import { useState, useRef, useEffect } from 'react';
 import './style.scss';
 import { tableIcons } from './tableIcons';
 import { OverrideComponents } from './OverrideComponents/index.jsx';
-import { getUpdateChangeRows } from './utis';
+import {
+  getUpdateChangeRows,
+  $openBulkUpdate,
+  $closeBulkUpdate,
+  $bulkUpdateSave,
+  $clearBulkUpdateDataAndCloseBulkUpdateState,
+} from './utis';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -31,6 +37,11 @@ export default function MTableNext(props) {
 
     if (tableRef) {
       tableRef.current.getUpdateChangeRows = getUpdateChangeRows;
+      tableRef.current.$openBulkUpdate = $openBulkUpdate;
+      tableRef.current.$closeBulkUpdate = $closeBulkUpdate;
+      tableRef.current.$bulkUpdateSave = $bulkUpdateSave;
+      tableRef.current.$clearBulkUpdateDataAndCloseBulkUpdateState =
+        $clearBulkUpdateDataAndCloseBulkUpdateState;
     }
   }, []);
 

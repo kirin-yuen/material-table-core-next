@@ -20,3 +20,42 @@
 export function getUpdateChangeRows() {
   return Object.entries(this.dataManager.bulkEditChangedRows);
 }
+
+// 开启批量编辑
+export function $openBulkUpdate() {
+  this.dataManager.changeBulkEditOpen(true);
+  this.setState({});
+}
+
+export function $clearBulkUpdateDataAndCloseBulkUpdateState() {
+  this.dataManager.changeBulkEditOpen(false);
+  this.dataManager.clearBulkEditChangedRows(); // 清除编辑过的行数据记录
+}
+
+// 关闭批量编辑
+export function $closeBulkUpdate(callback) {
+  callback
+    // resolve 路线
+    .then(() => {
+      this.$clearBulkUpdateDataAndCloseBulkUpdateState();
+      this.setState({});
+    })
+    // reject 路线
+    .catch(() => {});
+}
+
+// 批量编辑保存
+export function $bulkUpdateSave(callback) {
+  this.setState({ isLoading: true });
+
+  callback(this.getUpdateChangeRows())
+    // resolve 路线
+    .then(() => {})
+    // reject 路线
+    .catch(() => {})
+    // finally
+    .finally((e) => {
+      this.$clearBulkUpdateDataAndCloseBulkUpdateState();
+      this.setState({ isLoading: false });
+    });
+}
