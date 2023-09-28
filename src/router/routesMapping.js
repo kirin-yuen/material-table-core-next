@@ -3,6 +3,7 @@ import CustomizeAction from '../pages/CustomizeAction/index.jsx';
 import OverrideEditField from '../pages/OverrideEditField/index.jsx';
 import OverrideRowUpdateCancel from '../pages/OverrideRowUpdateCancel/index.jsx';
 import CustomizeButtonBulkUpdate from '../pages/CustomizeButtonBulkUpdate/index.jsx';
+import HideColumnsFromProps from '../pages/HideColumnsFromProps/index.jsx';
 
 export const routesMapping = [
   {
@@ -24,5 +25,9 @@ export const routesMapping = [
   {
     path: 'customize-button-bulk-update',
     element: <CustomizeButtonBulkUpdate />,
+  },
+  {
+    path: 'hide-columns-from-props',
+    element: <HideColumnsFromProps />,
   },
 ];

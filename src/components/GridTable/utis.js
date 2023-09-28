@@ -59,3 +59,9 @@ export function $bulkUpdateSave(callback) {
       this.setState({ isLoading: false });
     });
 }
+
+// 设置列
+export function $setColumns(columns) {
+  this.dataManager.setColumns(columns);
+  this.setState({ columns });
+}

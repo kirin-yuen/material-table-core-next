@@ -1,6 +1,6 @@
 import MaterialTable from '@material-table/core';
 import { Button } from '@mui/material';
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import './style.scss';
 import { tableIcons } from './tableIcons';
 import { OverrideComponents } from './OverrideComponents/index.jsx';
@@ -10,6 +10,7 @@ import {
   $closeBulkUpdate,
   $bulkUpdateSave,
   $clearBulkUpdateDataAndCloseBulkUpdateState,
+  $setColumns,
 } from './utis';
 
 const defaultOptions = {
@@ -23,13 +24,13 @@ const defaultOptions = {
 
 export default function MTableNext(props) {
   const { data, options, columns, tableRef } = props;
-  const [columnsDef, setColumnsDef] = useState(columns);
 
   const columnsRef = useRef([]);
 
   const mergeOptions = {
     ...defaultOptions,
     ...options,
+    editRowUpdate: props.editable?.onRowUpdate, // editable.onRowUpdate 无法通过状态变更触发表格渲染，因此需要通过加入到 option， 用 option 触发其渲染
   };
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function MTableNext(props) {
       tableRef.current.$bulkUpdateSave = $bulkUpdateSave;
       tableRef.current.$clearBulkUpdateDataAndCloseBulkUpdateState =
         $clearBulkUpdateDataAndCloseBulkUpdateState;
+      tableRef.current.$setColumns = $setColumns;
     }
   }, []);
 
@@ -51,7 +53,6 @@ export default function MTableNext(props) {
         {...props}
         data={data}
         options={mergeOptions}
-        columns={columnsDef}
         icons={tableIcons}
         components={{
           ...props.components,
@@ -69,18 +70,12 @@ export default function MTableNext(props) {
                   'pointer-events': 'initial',
                 }}
                 onClick={() => {
-                  const json1Str = JSON.stringify(
-                    columnsRef.current.map((item) => item.hidden)
-                  );
-                  const json2Str = JSON.stringify(
-                    columnsDef.map((item) => item.hidden)
-                  );
+                  // 打散原来的引用，否则电鸡重置按钮第二次会失效
+                  const newColumns = columnsRef.current.map((item) => ({
+                    ...item,
+                  }));
 
-                  if (json1Str !== json2Str) {
-                    setColumnsDef(
-                      columnsRef.current.map((item) => ({ ...item }))
-                    );
-                  }
+                  tableRef.current.$setColumns(newColumns);
                 }}
               >
                 Restore Column
