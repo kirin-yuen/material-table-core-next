@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Button } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import GridTable from '../../components/GridTable/index.jsx';
 import { mockRows } from './mockRows';
@@ -16,9 +17,13 @@ const columns = [
 
 export default function CustomizeAction() {
   const tableRef = useRef(null);
+  const [showAction, setShowAction] = useState(false);
 
   return (
     <>
+      <Button onClick={() => setShowAction(!showAction)}>
+        {showAction ? 'Hide Row Update' : 'Show Row Update'}
+      </Button>
       <GridTable
         tableRef={tableRef}
         columns={columns}
@@ -37,31 +42,34 @@ export default function CustomizeAction() {
         ]}
         editable={{
           isEditHidden: (rowData) => rowData.tableData.id !== 1,
-          onRowUpdate: () =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                const changedRows = Object.entries(
-                  tableRef.current.dataManager.bulkEditChangedRows
-                );
+          onRowUpdate: showAction
+            ? () =>
+                new Promise((resolve) => {
+                  setTimeout(() => {
+                    const changedRows = Object.entries(
+                      tableRef.current.dataManager.bulkEditChangedRows
+                    );
 
-                changedRows.forEach((item) => {
-                  const [index, { newData }] = item;
+                    changedRows.forEach((item) => {
+                      const [index, { newData }] = item;
 
-                  tableRef.current.dataManager.data[index] = newData;
-                  tableRef.current.dataManager.data[index].tableData.editing =
-                    undefined; // 清除行编辑状态，才能关闭行编辑状态
-                });
+                      tableRef.current.dataManager.data[index] = newData;
+                      tableRef.current.dataManager.data[
+                        index
+                      ].tableData.editing = undefined; // 清除行编辑状态，才能关闭行编辑状态
+                    });
 
-                // 同步行数据
-                tableRef.current.dataManager.setData(
-                  tableRef.current.dataManager.data
-                );
+                    // 同步行数据
+                    tableRef.current.dataManager.setData(
+                      tableRef.current.dataManager.data
+                    );
 
-                tableRef.current.dataManager.clearBulkEditChangedRows(); // 清除编辑过的行数据记录
+                    tableRef.current.dataManager.clearBulkEditChangedRows(); // 清除编辑过的行数据记录
 
-                resolve();
-              }, 1000);
-            }),
+                    resolve();
+                  }, 1000);
+                })
+            : undefined,
         }}
       />
     </>
