@@ -12,6 +12,7 @@ import {
   $clearBulkUpdateDataAndCloseBulkUpdateState,
   $setColumns,
 } from './utis';
+import ExtendSelection from './ExtendSelection.jsx';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -29,6 +30,10 @@ export default function MTableNext(props) {
 
   const mergeOptions = {
     ...defaultOptions,
+    // 行选择列头的 checkbox 属性
+    headerSelectionProps: {
+      onChange: (e) => tableRef.current.$setAnchorEl(e.target),
+    },
     ...options,
     editRowUpdate: props.editable?.onRowUpdate, // editable.onRowUpdate 无法通过状态变更触发表格渲染，因此需要通过加入到 option， 用 option 触发其渲染
   };
@@ -49,6 +54,7 @@ export default function MTableNext(props) {
 
   return (
     <div className="grid-container">
+      {mergeOptions.selection && <ExtendSelection tableRef={tableRef} />}
       <MaterialTable
         {...props}
         data={data}
@@ -84,7 +90,6 @@ export default function MTableNext(props) {
           },
         }}
       />
-      ;
     </div>
   );
 }

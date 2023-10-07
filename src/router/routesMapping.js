@@ -4,6 +4,7 @@ import OverrideEditField from '../pages/OverrideEditField/index.jsx';
 import OverrideRowUpdateCancel from '../pages/OverrideRowUpdateCancel/index.jsx';
 import CustomizeButtonBulkUpdate from '../pages/CustomizeButtonBulkUpdate/index.jsx';
 import HideColumnsFromProps from '../pages/HideColumnsFromProps/index.jsx';
+import ExtendSelectAll from '../pages/ExtendSelectAll/index.jsx';
 
 export const routesMapping = [
   {
@@ -29,5 +30,9 @@ export const routesMapping = [
   {
     path: 'hide-columns-from-props',
     element: <HideColumnsFromProps />,
+  },
+  {
+    path: 'extend-select-all',
+    element: <ExtendSelectAll />,
   },
 ];
