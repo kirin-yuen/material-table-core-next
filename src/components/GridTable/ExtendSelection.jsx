@@ -52,6 +52,17 @@ export default function ExtendSelection({ tableRef }) {
     return false;
   };
 
+  // 是否全选
+  const isSelectAll = () => {
+    let result = false;
+    if (tableRef.current) {
+      const { selectedCount, data } = tableRef.current.dataManager;
+      result = selectedCount >= data.length;
+    }
+
+    return result;
+  };
+
   // 全选数据与当前页数据按钮组
   const buttons = [
     {
@@ -62,6 +73,7 @@ export default function ExtendSelection({ tableRef }) {
         return `${prefix} This Page`;
       },
       count: tableRef.current?.dataManager.pagedData.length,
+      hidden: tableRef.current?.dataManager.paging ? isSelectAll() : true,
     },
     {
       onClick: () => {
@@ -73,13 +85,13 @@ export default function ExtendSelection({ tableRef }) {
         let prefix = '';
 
         if (tableRef.current) {
-          const { selectedCount, data } = tableRef.current.dataManager;
-          prefix = getPrefixStr(selectedCount >= data.length);
+          prefix = getPrefixStr(isSelectAll());
         }
 
         return `${prefix} All`;
       },
       count: tableRef.current?.dataManager.data.length,
+      hidden: false,
     },
   ];
 
@@ -104,18 +116,21 @@ export default function ExtendSelection({ tableRef }) {
     >
       <Paper>
         <List>
-          {buttons.map(({ text, onClick, count }) => (
-            <ListItemButton
-              dense
-              key={text()}
-              onClick={() => {
-                onClick();
-                setAnchorEl(false);
-              }}
-            >
-              <ListItemText primary={`${text()} (${count})`} />
-            </ListItemButton>
-          ))}
+          {buttons.map(
+            ({ text, onClick, count, hidden }) =>
+              !hidden && (
+                <ListItemButton
+                  dense
+                  key={text()}
+                  onClick={() => {
+                    onClick();
+                    setAnchorEl(false);
+                  }}
+                >
+                  <ListItemText primary={`${text()} (${count})`} />
+                </ListItemButton>
+              )
+          )}
         </List>
       </Paper>
     </Popover>

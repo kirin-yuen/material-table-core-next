@@ -55,7 +55,7 @@ export default function MTableNext(props) {
 
   return (
     <div className="grid-container">
-      <ExtendSelection tableRef={tableRef} />
+      {mergeOptions.selection && <ExtendSelection tableRef={tableRef} />}
       <MaterialTable
         {...props}
         data={data}
