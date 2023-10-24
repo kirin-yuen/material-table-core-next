@@ -5,6 +5,7 @@ import OverrideRowUpdateCancel from '../pages/OverrideRowUpdateCancel/index.jsx'
 import CustomizeButtonBulkUpdate from '../pages/CustomizeButtonBulkUpdate/index.jsx';
 import HideColumnsFromProps from '../pages/HideColumnsFromProps/index.jsx';
 import ExtendSelectAll from '../pages/ExtendSelectAll/index.jsx';
+import Validation from '../pages/Validation/index.jsx';
 
 export const routesMapping = [
   {
@@ -34,5 +35,9 @@ export const routesMapping = [
   {
     path: 'extend-select-all',
     element: <ExtendSelectAll />,
+  },
+  {
+    path: 'validation',
+    element: <Validation />,
   },
 ];

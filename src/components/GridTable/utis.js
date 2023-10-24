@@ -65,3 +65,19 @@ export function $setColumns(columns) {
   this.dataManager.setColumns(columns);
   this.setState({ columns });
 }
+
+// 后端存值
+// 1 代表 yes
+// 0 代表 no
+export function getCheckedValue(checked) {
+  return checked ? 1 : 0;
+}
+
+// 挂载一个对象的所有属性到另一个对象
+export function mountedObjTo(mountedObj, targetObj) {
+  const srcObjArr = Object.entries(mountedObj);
+
+  srcObjArr.forEach(([key, value]) => {
+    targetObj[key] = value;
+  });
+}

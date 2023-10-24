@@ -11,8 +11,11 @@ import {
   $bulkUpdateSave,
   $clearBulkUpdateDataAndCloseBulkUpdateState,
   $setColumns,
+  mountedObjTo,
 } from './utis';
 import ExtendSelection from './ExtendSelection.jsx';
+import * as $validation from './validation';
+import * as $processData from './processData';
 
 const defaultOptions = {
   searchFieldVariant: 'outlined',
@@ -41,6 +44,10 @@ export default function MTableNext(props) {
 
   useEffect(() => {
     columnsRef.current = columns.map((item) => ({ ...item }));
+  }, []);
+
+  useEffect(() => {
+    columnsRef.current = columns.map((item) => ({ ...item }));
 
     if (tableRef) {
       tableRef.current.getUpdateChangeRows = getUpdateChangeRows;
@@ -50,8 +57,14 @@ export default function MTableNext(props) {
       tableRef.current.$clearBulkUpdateDataAndCloseBulkUpdateState =
         $clearBulkUpdateDataAndCloseBulkUpdateState;
       tableRef.current.$setColumns = $setColumns;
+
+      // 挂载校验方法到表格实例里
+      mountedObjTo($validation, tableRef.current);
+
+      // 挂载校验方法到表格实例里
+      mountedObjTo($processData, tableRef.current);
     }
-  }, []);
+  }, [data]);
 
   return (
     <div className="grid-container">
