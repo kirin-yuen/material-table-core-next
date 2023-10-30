@@ -11,6 +11,7 @@ import {
   $bulkUpdateSave,
   $clearBulkUpdateDataAndCloseBulkUpdateState,
   $setColumns,
+  $selectAfterRerenderTable,
   mountedObjTo,
 } from './utis';
 import ExtendSelection from './ExtendSelection.jsx';
@@ -47,8 +48,6 @@ export default function MTableNext(props) {
   }, []);
 
   useEffect(() => {
-    columnsRef.current = columns.map((item) => ({ ...item }));
-
     if (tableRef) {
       tableRef.current.getUpdateChangeRows = getUpdateChangeRows;
       tableRef.current.$openBulkUpdate = $openBulkUpdate;
@@ -57,6 +56,7 @@ export default function MTableNext(props) {
       tableRef.current.$clearBulkUpdateDataAndCloseBulkUpdateState =
         $clearBulkUpdateDataAndCloseBulkUpdateState;
       tableRef.current.$setColumns = $setColumns;
+      tableRef.current.$selectAfterRerenderTable = $selectAfterRerenderTable;
 
       // 挂载校验方法到表格实例里
       mountedObjTo($validation, tableRef.current);

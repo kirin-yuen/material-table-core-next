@@ -66,6 +66,25 @@ export function $setColumns(columns) {
   this.setState({ columns });
 }
 
+// 现象：在 onSelectionChange 方法里使用了 react 状态的 setState，则会重新渲染表格组件，并清除表格所有勾选
+// 解决：利用 onSelectionChange 返回选中的行记录，使用表格实例 api 重新选择，但会有闪烁问题
+export function $selectAfterRerenderTable(selectedRows = []) {
+  const tableRef = this;
+
+  window.setTimeout(() => {
+    selectedRows.forEach((item) => {
+      const { checked, id } = item.tableData;
+
+      tableRef.dataManager.changeRowSelected(checked, [id]);
+    });
+
+    tableRef.setState({
+      originalData: tableRef.dataManager.data,
+      selectedCount: selectedRows.length,
+    });
+  });
+}
+
 // 后端存值
 // 1 代表 yes
 // 0 代表 no
