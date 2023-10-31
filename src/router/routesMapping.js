@@ -6,6 +6,7 @@ import CustomizeButtonBulkUpdate from '../pages/CustomizeButtonBulkUpdate/index.
 import HideColumnsFromProps from '../pages/HideColumnsFromProps/index.jsx';
 import ExtendSelectAll from '../pages/ExtendSelectAll/index.jsx';
 import Validation from '../pages/Validation/index.jsx';
+import OverrideBodyAndSelect from '../pages/OverrideBodyAndSelect/index.jsx';
 
 export const routesMapping = [
   {
@@ -39,5 +40,9 @@ export const routesMapping = [
   {
     path: 'validation',
     element: <Validation />,
+  },
+  {
+    path: 'override-body-and-select',
+    element: <OverrideBodyAndSelect />,
   },
 ];
