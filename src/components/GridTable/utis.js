@@ -78,10 +78,7 @@ export function $selectAfterRerenderTable(selectedRows = []) {
       tableRef.dataManager.changeRowSelected(checked, [id]);
     });
 
-    tableRef.setState({
-      originalData: tableRef.dataManager.data,
-      selectedCount: selectedRows.length,
-    });
+    tableRef.setState(tableRef.dataManager.getRenderState());
   });
 }
 
