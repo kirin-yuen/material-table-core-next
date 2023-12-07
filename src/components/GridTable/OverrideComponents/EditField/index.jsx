@@ -7,23 +7,56 @@ const DEFAULT_PROPS = {
   fullWidth: true,
 };
 
-export default function EditField(props) {
-  const {
-    columnDef: { type, lookup },
-  } = props;
-
-  const mergeProps = {
-    ...DEFAULT_PROPS,
-    ...props,
+const bindDataToBulkUpdateValidation = ({ tableRef, key, field, error }) => {
+  tableRef.current.$bulkUpdateValidation[key] = {
+    ...tableRef.current.$bulkUpdateValidation[key],
   };
 
-  if (type === 'date') {
-    return <OverrideDatePicker {...mergeProps} />;
-  }
+  tableRef.current.$bulkUpdateValidation[key][field] = error;
+};
 
-  if (lookup) {
-    return <OverrideSelect {...mergeProps} />;
-  }
+export default function EditField(tableRef) {
+  return (props) => {
+    const {
+      columnDef: { type, lookup, field },
+      rowData,
+      error,
+    } = props;
 
-  return <OverrideTextField {...mergeProps} />;
+    const mergeProps = {
+      ...DEFAULT_PROPS,
+      ...props,
+    };
+
+    const { id, isAdd } = rowData.tableData;
+
+    if (isAdd) {
+      bindDataToBulkUpdateValidation({ tableRef, key: id, field, error });
+    }
+
+    const bulkUpdateIndexArr = Object.keys(
+      tableRef.current.dataManager.bulkEditChangedRows
+    );
+
+    if (bulkUpdateIndexArr.length) {
+      bulkUpdateIndexArr.forEach((item) => {
+        bindDataToBulkUpdateValidation({
+          tableRef,
+          key: String(item),
+          field,
+          error,
+        });
+      });
+    }
+
+    if (type === 'date') {
+      return <OverrideDatePicker {...mergeProps} />;
+    }
+
+    if (lookup) {
+      return <OverrideSelect {...mergeProps} />;
+    }
+
+    return <OverrideTextField {...mergeProps} />;
+  };
 }
