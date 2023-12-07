@@ -7,6 +7,7 @@ import HideColumnsFromProps from '../pages/HideColumnsFromProps/index.jsx';
 import ExtendSelectAll from '../pages/ExtendSelectAll/index.jsx';
 import Validation from '../pages/Validation/index.jsx';
 import OverrideBodyAndSelect from '../pages/OverrideBodyAndSelect/index.jsx';
+import CombineAddBulkUpdateDelete from '../pages/CombineAddBulkUpdateDelete/index.jsx';
 
 export const routesMapping = [
   {
@@ -44,5 +45,9 @@ export const routesMapping = [
   {
     path: 'override-body-and-select',
     element: <OverrideBodyAndSelect />,
+  },
+  {
+    path: 'combine-add-bulk-update-delete',
+    element: <CombineAddBulkUpdateDelete />,
   },
 ];
